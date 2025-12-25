@@ -2,8 +2,8 @@ import { ConfigModule } from "@nestjs/config";
 import { DrizzleModule } from "./database/drizzle.module.js";
 import { UserModule } from "./users/user.module.js";
 import { BullModule } from "@nestjs/bullmq";
-import { RedisService } from "./cashe/redis.service.js";
 import { Module } from "@nestjs/common";
+import { RedisModule } from "./cashe/redis.module";
 
 @Module({
   imports: [
@@ -13,6 +13,7 @@ import { Module } from "@nestjs/common";
     }),
     DrizzleModule,
     UserModule,
+    RedisModule,
     BullModule.forRoot({
       connection: {
         host: process.env.REDIS_HOST || 'localhost',
@@ -20,6 +21,6 @@ import { Module } from "@nestjs/common";
       },
     }),
   ],
-  providers: [RedisService],
+  providers: [],
 })
 export class AppModule {}
